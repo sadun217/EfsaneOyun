@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EfsaneOyun | Ücretsiz Oyunlar</title>
+<style>
+:root{--blue:#1767cc;--navy:#123d75;--pale:#eaf3ff;--ink:#17345b}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#f4f8ff;color:var(--ink)}
+header{background:white;position:sticky;top:0;z-index:5;box-shadow:0 2px 14px #17345b12}
+.nav{max-width:1100px;margin:auto;padding:15px 20px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.logo{font-weight:900;font-size:1.35rem;color:var(--blue);letter-spacing:-.5px}.logo span{color:#183d70}
+.pill{background:#e7f1ff;color:#1767cc;padding:7px 12px;border-radius:99px;font-size:.78rem;font-weight:800}
+main{max-width:1100px;margin:auto;padding:28px 20px 60px}
+.hero{background:linear-gradient(120deg,#e6f1ff,#fff);border:1px solid #d6e7ff;border-radius:24px;padding:35px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;overflow:hidden}
+.hero h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.05;margin:0 0 12px;color:#164b91}.hero p{margin:0;color:#526d91;font-size:1.05rem}.hero-art{font-size:clamp(4rem,12vw,7rem);filter:drop-shadow(0 12px 10px #1767cc22)}
+.section-title{display:flex;align-items:end;justify-content:space-between;margin:32px 0 15px;gap:12px}.section-title h2{margin:0;color:#174a89}.section-title p{margin:0;color:#6a7f9b;font-size:.9rem}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.card{background:white;border:1px solid #e0ebfa;border-radius:18px;padding:19px;text-align:left;cursor:pointer;box-shadow:0 5px 18px #17345b08;transition:.18s;color:inherit}
+.card:hover{transform:translateY(-4px);box-shadow:0 12px 25px #1767cc18;border-color:#a9ceff}
+.card .emoji{font-size:2.5rem;display:block;margin-bottom:12px}.card strong{display:block;font-size:1.05rem}.card small{display:block;color:#71839b;margin-top:5px}
+.games{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.game{display:flex;align-items:center;gap:15px;background:#fff;border:1px solid #e0ebfa;border-radius:16px;padding:15px}
+.game-icon{width:58px;height:58px;display:grid;place-items:center;background:var(--pale);border-radius:14px;font-size:2rem;flex-shrink:0}
+.game h3{margin:0 0 4px;font-size:1rem}.game p{margin:0;color:#71839b;font-size:.85rem}
+.play{margin-left:auto;border:0;border-radius:11px;background:var(--blue);color:white;font-weight:800;padding:10px 14px;cursor:pointer}
+footer{text-align:center;color:#8292a8;padding:25px;font-size:.85rem}
+.modal{display:none;position:fixed;inset:0;background:#071a33bb;z-index:10;padding:18px;align-items:center;justify-content:center}
+.modal.show{display:flex}.panel{width:min(720px,100%);max-height:90vh;overflow:auto;background:white;border-radius:20px;padding:20px;box-shadow:0 20px 60px #0004}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.panel h2{margin:0;color:#174a89}.close{border:0;background:#edf4ff;border-radius:10px;padding:9px 12px;cursor:pointer;font-weight:800}
+#gameArea{margin-top:15px;background:#eef5ff;border-radius:15px;padding:16px;min-height:260px;text-align:center}
+canvas{display:block;max-width:100%;margin:10px auto;border-radius:12px;background:#dcecff;touch-action:manipulation}
+.controls{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.controls button,.action-btn{border:0;background:#1767cc;color:white;border-radius:10px;padding:10px 15px;font-weight:800;cursor:pointer}
+.hint{color:#667d9b;font-size:.9rem}
+.memory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:390px;margin:15px auto}
+.tile{height:65px;border:0;border-radius:10px;background:#1767cc;color:white;font-size:1.5rem;cursor:pointer}
+.tile.open{background:white;color:#17345b;border:2px solid #cfe2ff}
+@media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}.games{grid-template-columns:1fr}.hero{padding:25px 20px}.game{gap:10px}.play{padding:9px 11px}}
+@media(max-width:390px){.nav{padding:12px}.pill{font-size:.68rem}.game-icon{width:48px;height:48px}.game{padding:11px}}
+</style>
+</head>
+<body>
+<header><div class="nav"><div class="logo">🎮 Efsane<span>Oyun</span></div><div class="pill">ÜCRETSİZ OYUNLAR</div></div></header>
+<main>
+<section class="hero"><div><h1>Oyunun keyfini çıkar!</h1><p>Seç, tıkla ve hemen oynamaya başla.<br>Ücretsiz mini oyunlar seni bekliyor.</p></div><div class="hero-art">🕹️</div></section>
+<div class="section-title"><h2>Oyun kategorileri</h2><p>Bir kategori seç</p></div>
+<section class="grid">
+<button class="card" onclick="showGame('car')"><span class="emoji">🏎️</span><strong>Araba Yarışı</strong><small>Engellerden kaç!</small></button>
+<button class="card" onclick="showGame('jump')"><span class="emoji">🦘</span><strong>Zıplama Oyunları</strong><small>Platformlarda ilerle!</small></button>
+<button class="card" onclick="showGame('action')"><span class="emoji">🎯</span><strong>Aksiyon Oyunları</strong><small>Hedeflere dokun!</small></button>
+<button class="card" onclick="showGame('puzzle')"><span class="emoji">🧩</span><strong>Bulmaca Oyunları</strong><small>Eşleşen çiftleri bul!</small></button>
+</section>
+<div class="section-title"><h2>Hemen oyna</h2><p>Oyunlar doğrudan açılır</p></div>
+<section class="games">
+<div class="game"><div class="game-icon">🏎️</div><div><h3>Mini Araba Yarışı</h3><p>Sağa sola geç, engellerden kaç.</p></div><button class="play" onclick="showGame('car')">Oyna</button></div>
+<div class="game"><div class="game-icon">🦘</div><div><h3>Zıplayan Kahraman</h3><p>Engellerin üzerinden zıpla.</p></div><button class="play" onclick="showGame('jump')">Oyna</button></div>
+<div class="game"><div class="game-icon">🎯</div><div><h3>Hedef Avı</h3><p>30 saniyede hedefleri yakala.</p></div><button class="play" onclick="showGame('action')">Oyna</button></div>
+<div class="game"><div class="game-icon">🧩</div><div><h3>Hafıza Eşleştirme</h3><p>Aynı resimleri eşleştir.</p></div><button class="play" onclick="showGame('puzzle')">Oyna</button></div>
+</section>
+</main>
+<footer>© 2026 EfsaneOyun · İyi eğlenceler!<br>Bu başlangıç sürümü ücretsiz mini oyunlar içerir.</footer>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="gameTitle"><div class="panel"><div class="panel-head"><h2 id="gameTitle">Oyun</h2><button class="close" onclick="closeGame()">Kapat ✕</button></div><div id="gameArea"></div></div></div>
+<script>
+const modal=document.getElementById('modal'), area=document.getElementById('gameArea'), title=document.getElementById('gameTitle');let cleanup=null;
+function closeGame(){if(cleanup)cleanup();cleanup=null;modal.classList.remove('show');area.innerHTML=''}
+function showGame(which){closeGame();modal.classList.add('show');({car:carGame,jump:jumpGame,action:actionGame,puzzle:puzzleGame}[which])()}
+modal.addEventListener('click',e=>{if(e.target===modal)closeGame()});
+function carGame(){title.textContent='🏎️ Mini Araba Yarışı';area.innerHTML='<p class="hint">← → tuşlarıyla veya aşağıdaki düğmelerle hareket et. Engellere çarpma!</p><canvas id="c" width="420" height="300"></canvas><div class="controls"><button id="left">⬅️ Sola</button><button id="right">Sağa ➡️</button><button id="restart">Yeniden başlat</button></div><p id="score">Puan: 0</p>';
+let c=document.getElementById('c'),ctx=c.getContext('2d'),x=190,obs=[],score=0,over=false,frame=0,raf;function draw(){ctx.fillStyle='#b9d7f5';ctx.fillRect(0,0,420,300);ctx.fillStyle='#566f8d';ctx.fillRect(70,0,280,300);ctx.fillStyle='white';for(let y=(frame%40)-40;y<300;y+=80)ctx.fillRect(205,y,10,40);ctx.fillStyle='#ffca58';ctx.fillRect(x,240,38,48);ctx.fillStyle='#17345b';ctx.fillRect(x+7,248,24,13);obs.forEach(o=>{ctx.fillStyle='#ed6b6b';ctx.fillRect(o.x,o.y,38,45)});if(!over){frame++;if(frame%65===0)obs.push({x:85+Math.floor(Math.random()*3)*90,y:-50});obs.forEach(o=>o.y+=3.5);obs=obs.filter(o=>o.y<320);score++;document.getElementById('score').textContent='Puan: '+Math.floor(score/8);if(obs.some(o=>o.x<x+34&&o.x+34>x&&o.y<288&&o.y+40>240)){over=true;ctx.fillStyle='#17345b';ctx.font='bold 24px sans-serif';ctx.fillText('Oyun bitti!',145,150)}raf=requestAnimationFrame(draw)}}function move(d){x=Math.max(75,Math.min(307,x+d*45))}let key=e=>{if(e.key==='ArrowLeft')move(-1);if(e.key==='ArrowRight')move(1)};document.addEventListener('keydown',key);document.getElementById('left').onclick=()=>move(-1);document.getElementById('right').onclick=()=>move(1);document.getElementById('restart').onclick=()=>{cancelAnimationFrame(raf);x=190;obs=[];score=0;frame=0;over=false;draw()};draw();cleanup=()=>{cancelAnimationFrame(raf);document.removeEventListener('keydown',key)}}
+function jumpGame(){title.textContent='🦘 Zıplayan Kahraman';area.innerHTML='<p class="hint">Ekrana, BOŞLUK tuşuna veya Zıpla düğmesine bas. Engelleri aş!</p><canvas id="c" width="420" height="230"></canvas><div class="controls"><button id="jump">Zıpla ⬆️</button><button id="again">Yeniden başlat</button></div><p id="score">Puan: 0</p>';let c=document.getElementById('c'),ctx=c.getContext('2d'),y=160,vy=0,obs=[],score=0,over=false,raf;function hop(){if(y>=159&&!over)vy=-12}function draw(){ctx.fillStyle='#dcecff';ctx.fillRect(0,0,420,230);ctx.fillStyle='#6d9bcb';ctx.fillRect(0,195,420,35);ctx.fillStyle='#1767cc';ctx.fillRect(55,y,30,35);ctx.fillStyle='#f18b60';obs.forEach(o=>{ctx.fillRect(o.x,175,22,20);o.x-=4});obs=obs.filter(o=>o.x>-30);if(!over){vy+=.55;y=Math.min(160,y+vy);if(Math.random()<.025)obs.push({x:430});score++;document.getElementById('score').textContent='Puan: '+Math.floor(score/5);if(obs.some(o=>o.x<85&&o.x>35&&y>140)){over=true;ctx.fillStyle='#17345b';ctx.font='bold 24px sans-serif';ctx.fillText('Oyun bitti!',145,100)}raf=requestAnimationFrame(draw)}}let key=e=>{if(e.code==='Space'){e.preventDefault();hop()}};document.addEventListener('keydown',key);c.addEventListener('pointerdown',hop);document.getElementById('jump').onclick=hop;document.getElementById('again').onclick=()=>{cancelAnimationFrame(raf);y=160;vy=0;obs=[];score=0;over=false;draw()};draw();cleanup=()=>{cancelAnimationFrame(raf);document.removeEventListener('keydown',key)}}
+function actionGame(){title.textContent='🎯 Hedef Avı';area.innerHTML='<p class="hint">30 saniyede beliren mavi hedeflere olabildiğince hızlı dokun!</p><div style="font-size:1.1rem;font-weight:800">Süre: <span id="time">30</span> · Puan: <span id="pts">0</span></div><div id="targetZone" style="height:190px;position:relative;background:#dcecff;border-radius:12px;margin-top:12px;overflow:hidden"><button id="target" aria-label="Hedef" style="position:absolute;border:0;border-radius:50%;width:54px;height:54px;background:#1767cc;color:white;font-size:1.5rem;cursor:pointer">★</button></div><div class="controls"><button id="start">Başlat / Tekrar oyna</button></div>';let pts=0,t=30,timer=null,started=false;let target=document.getElementById('target'),zone=document.getElementById('targetZone');function place(){target.style.left=Math.random()*(zone.clientWidth-60)+'px';target.style.top=Math.random()*(zone.clientHeight-60)+'px'}target.onclick=()=>{if(started){pts++;document.getElementById('pts').textContent=pts;place()}};document.getElementById('start').onclick=()=>{clearInterval(timer);pts=0;t=30;started=true;document.getElementById('pts').textContent=pts;document.getElementById('time').textContent=t;place();timer=setInterval(()=>{t--;document.getElementById('time').textContent=t;if(t<=0){clearInterval(timer);started=false;target.style.display='none';zone.innerHTML='<div style="padding:65px 10px;font-weight:900;color:#174a89">Süre bitti! Puanın: '+pts+'</div>'}},1000);target.style.display='block'};place();cleanup=()=>clearInterval(timer)}
+function puzzleGame(){title.textContent='🧩 Hafıza Eşleştirme';area.innerHTML='<p class="hint">Kartları aç ve aynı resimleri eşleştir.</p><div id="moves">Hamle: 0</div><div class="memory-grid" id="memory"></div><div class="controls"><button id="new">Yeni oyun</button></div>';let icons=['🐱','🚀','🍕','⚽','🌟','🐸','🎈','🍉'];let first=null,lock=false,moves=0,matched=0,timeout=null;function setup(){if(timeout)clearTimeout(timeout);first=null;lock=false;moves=0;matched=0;let arr=[...icons,...icons].sort(()=>Math.random()-.5),grid=document.getElementById('memory');grid.innerHTML='';document.getElementById('moves').textContent='Hamle: 0';arr.forEach((v,i)=>{let b=document.createElement('button');b.className='tile';b.textContent='?';b.dataset.v=v;b.onclick=()=>{if(lock||b.classList.contains('open')||b.disabled)return;b.textContent=v;b.classList.add('open');if(!first){first=b}else{moves++;document.getElementById('moves').textContent='Hamle: '+moves;if(first.dataset.v===b.dataset.v){first.disabled=b.disabled=true;first=null;matched+=2;if(matched===16)document.getElementById('moves').textContent='Tebrikler! '+moves+' hamlede bitirdin 🎉'}else{lock=true;let prev=first;timeout=setTimeout(()=>{prev.textContent='?';b.textContent='?';prev.classList.remove('open');b.classList.remove('open');first=null;lock=false},700)}}};grid.appendChild(b)})}document.getElementById('new').onclick=setup;setup();cleanup=()=>{if(timeout)clearTimeout(timeout)}}
+</script>
+</body></html>
